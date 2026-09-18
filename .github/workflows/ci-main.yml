@@ -15,12 +15,12 @@ jobs:
     timeout-minutes: 90
     steps:
       - name: Check out
-        uses: actions/checkout@v3
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
 
       - name: Install cargo-edit
-        uses: baptiste0928/cargo-install@v2
+        uses: baptiste0928/cargo-install@c7dafcfd8a0035d58dfc65d0fbaf71a9ac347715 # v2
         with:
           crate: cargo-edit
           version: "0.13.6"
@@ -39,14 +39,14 @@ jobs:
       - name: Get latest repo tag
         if: env.RELEASE == 'true'
         id: latest_repo_tag
-        uses: WyriHaximus/github-action-get-previous-tag@v1
+        uses: WyriHaximus/github-action-get-previous-tag@27c04b107bd8de27966ed909e0992078a9121de8 # v1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Get next repo tags
         if: env.RELEASE == 'true'
         id: new_repo_tag
-        uses: WyriHaximus/github-action-next-semvers@v1
+        uses: WyriHaximus/github-action-next-semvers@1b773ddb3831644dabc80ef5e791ebd4925f7651 # v1
         with:
           version: ${{ steps.latest_repo_tag.outputs.tag }}
 
