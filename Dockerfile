@@ -14,8 +14,16 @@ LABEL io.aventus.image.authors="devops@aventus.io" \
 	io.aventus.image.created="${BUILD_DATE}" \
 	io.aventus.image.documentation="https://github.com/Aventus-Network-Services/avn-node-parachain"
 
-# show backtraces
-ENV RUST_BACKTRACE 1
+# NOTE: RUST_BACKTRACE was intentionally removed. Full backtraces can leak
+# absolute paths, environment internals, and stack memory layouts in the
+# production image. Operators who need one should set RUST_BACKTRACE at
+# container runtime instead.
+#
+# Hardening recommendation (requires a one-time resolution): pin the base image
+# to an immutable digest, e.g.
+#   FROM ubuntu:24.04@sha256:<digest>
+# instead of the floating `ubuntu:24.04` tag, so a new tag push can never
+# silently change the base OS of a release.
 
 # install tools and dependencies
 RUN apt-get update && \
